@@ -15,7 +15,7 @@ spec:
         app: daemon
     spec:
       nodeSelector:
-        audio: enabled
+        speech.nandy.io/speakers: enabled
       containers:
       - name: daemon
         image: docker.io/nandyio/speech-daemon:0.1
