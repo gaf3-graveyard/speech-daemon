@@ -1,4 +1,4 @@
-# node-speech-daemon
-Daemon for speaking on a Node
+# speech-daemon
+Daemon for speaking
 
 Note: This can only be built only actual Raspberry Pi

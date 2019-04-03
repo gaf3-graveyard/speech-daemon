@@ -1,6 +1,6 @@
 MACHINE=$(shell uname -m)
 ACCOUNT=nandyio
-IMAGE=speech-node-daemon
+IMAGE=speech-daemon
 VERSION?=0.1
 VOLUMES=-v ${PWD}/lib/:/opt/nandy-io/lib/ \
 		-v ${PWD}/test/:/opt/nandy-io/test/ \
@@ -31,10 +31,16 @@ else
 	echo "Only push armv7l"
 endif
 	
-create:
-	kubectl create -f kuberetes/daemon.yaml
+install:
+	kubectl create -f kubernetes/account.yaml
+	kubectl create -f kubernetes/daemon.yaml
 
-delete:
-	kubectl delete -f kuberetes/daemon.yaml
+update:
+	kubectl replace -f kubernetes/account.yaml
+	kubectl replace -f kubernetes/daemon.yaml
 
-update: delete create
+remove:
+	kubectl delete -f kubernetes/daemon.yaml
+	kubectl delete -f kubernetes/account.yaml
+
+reset: remove install
