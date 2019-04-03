@@ -38,6 +38,6 @@ update:
 	kubectl replace -f kubernetes/daemon.yaml
 
 remove:
-	kubectl delete -f kubernetes/account.yaml
+	-kubectl delete -f kubernetes/daemon.yaml
 
 reset: remove install
