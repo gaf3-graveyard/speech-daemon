@@ -7,6 +7,7 @@ import time
 import traceback
 
 import json
+import yaml
 import redis
 import gtts
 import patch
@@ -19,10 +20,15 @@ class Daemon(object):
     def __init__(self):
 
         self.node = os.environ['K8S_NODE']
-        self.redis = redis.StrictRedis(host=os.environ['REDIS_HOST'], port=int(os.environ['REDIS_PORT']))
-        self.channel = os.environ['REDIS_CHANNEL']
+
         self.speech_file = os.environ['SPEECH_FILE']
         self.sleep = int(os.environ['SLEEP'])
+
+        with open("/opt/nandy-io/subscriptions/redis.yaml", "r") as redis_file:
+            redis_config = yaml.safe_load(redis_file)
+
+        self.redis = redis.StrictRedis(host=redis_config["host"], port=redis_config["port"])
+        self.channel = os.environ['REDIS_CHANNEL']
 
         self.pubsub = None
         self.tts = None

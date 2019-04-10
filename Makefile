@@ -2,11 +2,12 @@ MACHINE=$(shell uname -m)
 ACCOUNT=nandyio
 IMAGE=speech-daemon
 VERSION?=0.1
-VOLUMES=-v ${PWD}/lib/:/opt/nandy-io/lib/ \
-		-v ${PWD}/test/:/opt/nandy-io/test/ \
-		-v ${PWD}/bin/:/opt/nandy-io/bin/
+VOLUMES=-v ${PWD}/subscriptions/:/opt/nandy-io/subscriptions/ \
+		-v ${PWD}/lib/:/opt/nandy-io/lib/ \
+		-v ${PWD}/bin/:/opt/nandy-io/bin/ \
+		-v ${PWD}/test/:/opt/nandy-io/test/
 
-.PHONY: build shell test run push create update delete
+.PHONY: build shell test run push install update remove reset
 
 ifeq ($(MACHINE),armv7l)
 DEVICE=--device=/dev/vchiq
@@ -30,7 +31,7 @@ ifeq ($(MACHINE),armv7l)
 else
 	echo "Only push armv7l"
 endif
-	
+
 install:
 	kubectl create -f kubernetes/daemon.yaml
 

@@ -46,8 +46,6 @@ class TestService(unittest.TestCase):
 
     @mock.patch.dict(os.environ, {
         "K8S_NODE": "noisy",
-        "REDIS_HOST": "data.com",
-        "REDIS_PORT": "667",
         "REDIS_CHANNEL": "stuff",
         "SPEECH_FILE": "blah.mp3",
         "SLEEP": "7"
@@ -59,8 +57,6 @@ class TestService(unittest.TestCase):
 
     @mock.patch.dict(os.environ, {
         "K8S_NODE": "noisy",
-        "REDIS_HOST": "data.com",
-        "REDIS_PORT": "667",
         "REDIS_CHANNEL": "stuff",
         "SPEECH_FILE": "blah.mp3",
         "SLEEP": "7"
@@ -71,8 +67,8 @@ class TestService(unittest.TestCase):
         daemon = service.Daemon()
 
         self.assertEqual(daemon.node, "noisy")
-        self.assertEqual(daemon.redis.host, "data.com")
-        self.assertEqual(daemon.redis.port, 667)
+        self.assertEqual(daemon.redis.host, "db.redis-klot-io")
+        self.assertEqual(daemon.redis.port, 6379)
         self.assertEqual(daemon.channel, "stuff")
         self.assertEqual(daemon.speech_file, "blah.mp3")
         self.assertEqual(daemon.sleep, 7)
