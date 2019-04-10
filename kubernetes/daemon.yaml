@@ -16,6 +16,10 @@ spec:
     spec:
       nodeSelector:
         speech.nandy.io/speakers: enabled
+      volumes:
+      - name: subscriptions
+        configMap:
+          name: subscriptions
       containers:
       - name: daemon
         image: docker.io/nandyio/speech-daemon:0.1
@@ -36,8 +40,3 @@ spec:
           mountPath: /opt/nandy-io/subscriptions
         securityContext:
           privileged: true
-      volumes:
-        - name: subscriptions
-          configMap:
-            name: subscriptions
-
