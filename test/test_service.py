@@ -67,7 +67,7 @@ class TestService(unittest.TestCase):
         daemon = service.Daemon()
 
         self.assertEqual(daemon.node, "noisy")
-        self.assertEqual(daemon.redis.host, "db.redis-klot-io")
+        self.assertEqual(daemon.redis.host, "host.docker.internal")
         self.assertEqual(daemon.redis.port, 6379)
         self.assertEqual(daemon.channel, "stuff")
         self.assertEqual(daemon.speech_file, "blah.mp3")
