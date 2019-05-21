@@ -16,10 +16,6 @@ spec:
     spec:
       nodeSelector:
         speech.nandy.io/speakers: enabled
-      volumes:
-      - name: subscriptions
-        configMap:
-          name: subscriptions
       containers:
       - name: daemon
         image: docker.io/nandyio/speech-daemon:0.1
@@ -29,14 +25,15 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
+        - name: REDIS_HOST
+          value: db.redis-klot-io
+        - name: REDIS_PORT
+          value: "6379"
         - name: REDIS_CHANNEL
           value: nandy.io/speech
         - name: SPEECH_FILE
           value: /tmp/speech.mp3
         - name: SLEEP
           value: "1"
-        volumeMounts:
-        - name: subscriptions
-          mountPath: /opt/nandy-io/subscriptions
         securityContext:
           privileged: true
