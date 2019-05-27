@@ -18,7 +18,7 @@ build:
 	docker build . -f $(MACHINE).Dockerfile -t $(ACCOUNT)/$(IMAGE):$(VERSION)
 
 shell:
-	docker run $(DEVICE)-it $(VOLUMES) $(ACCOUNT)/$(IMAGE):$(VERSION) sh
+	docker run $(DEVICE) -it $(VOLUMES) $(ENVIRONMENT) $(ACCOUNT)/$(IMAGE):$(VERSION) sh
 
 test:
 	docker run $(DEVICE) -it $(VOLUMES) $(ACCOUNT)/$(IMAGE):$(VERSION) sh -c "coverage run -m unittest discover -v test && coverage report -m --include lib/service.py"
