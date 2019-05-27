@@ -8,6 +8,7 @@ VOLUMES=-v ${PWD}/lib/:/opt/nandy-io/lib/ \
 ENVIRONMENT=-e REDIS_HOST=host.docker.internal \
 			-e REDIS_PORT=6379 \
 			-e REDIS_CHANNEL=nandy.io/speech
+			
 .PHONY: build shell test run push install update remove reset
 
 ifeq ($(MACHINE),armv7l)
