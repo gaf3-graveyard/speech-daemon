@@ -9,7 +9,7 @@ ENVIRONMENT=-e REDIS_HOST=host.docker.internal \
 			-e REDIS_PORT=6379 \
 			-e REDIS_CHANNEL=nandy.io/speech
 			
-.PHONY: build shell test run push install update remove reset
+.PHONY: build shell test run push install update remove reset tag
 
 ifeq ($(MACHINE),armv7l)
 DEVICE=--device=/dev/vchiq
@@ -44,3 +44,7 @@ remove:
 	-kubectl delete -f kubernetes/daemon.yaml
 
 reset: remove install
+
+tag:
+	-git tag -a "v$(VERSION)" -m "Version $(VERSION)"
+	git push origin --tags
